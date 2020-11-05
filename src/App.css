@@ -1,38 +1,76 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Light:wght@300&display=swap'); */
+
+@font-face {
+  src: url('/src/media/fonts/Roboto-Thin.ttf');
+  font-family: 'roboto-light';
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --primary-color: #E8EDF1;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+* {
+  font-family: 'Roboto';
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+body {
+  background-color: var(--primary-color);
 }
 
-.App-link {
-  color: #61dafb;
+#page-title {
+  font-family: "roboto-light";
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#search {
+  height: 64px;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 
+  0px 4px 5px 0px rgba(0,0,0,0.14), 
+  0px 1px 10px 0px rgba(0,0,0,0.12);
+  -webkit-box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 
+  0px 4px 5px 0px rgba(0,0,0,0.14), 
+  0px 1px 10px 0px rgba(0,0,0,0.12);
+  -moz-box-shadow-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 
+  0px 4px 5px 0px rgba(0,0,0,0.14), 
+  0px 1px 10px 0px rgba(0,0,0,0.12);
+  outline: none;
+  padding-left: 3.5rem;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+  font-family: 'roboto-light';
+}
+
+.cards {
+}
+
+.card {
+  width: 350px;
+  height: 300px;
+  background-color: #fff;
+  margin-bottom: 3.5rem;
+  -webkit-border-radius: 40px;
+  -webkit-border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius: 40px;
+  -moz-border-radius-bottomright: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-radius: 40px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 
+  0px 4px 5px 0px rgba(0,0,0,0.14), 
+  0px 1px 10px 0px rgba(0,0,0,0.12);
+  -webkit-box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 
+  0px 4px 5px 0px rgba(0,0,0,0.14), 
+  0px 1px 10px 0px rgba(0,0,0,0.12);
+  -moz-box-shadow-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 
+  0px 4px 5px 0px rgba(0,0,0,0.14), 
+  0px 1px 10px 0px rgba(0,0,0,0.12);
 }
