@@ -3,12 +3,15 @@ import { Grid } from '@material-ui/core'
 import Navbar from '../layout/Navbar'
 import Search from '../layout/Search'
 import UserLocationContext from '../../context/userLocation/userLocationContext'
+import Card from '../layout/cards/Card'
 
 const Home = () => {
 
     const userLocationContext = useContext(UserLocationContext)
 
     const { places } = userLocationContext
+
+    const colors = ['#0073BD', '#FF6B6B', '#DC901C', '#00B776']
 
     return (
             <div>
@@ -20,13 +23,7 @@ const Home = () => {
                             <Grid container item xs={12} style={{justifyContent: 'space-around'}}>
 
                             {places.map(place => {
-                                console.log(place)
-                                return <div className='card'>
-                                    <h1>{place.name}</h1>
-                                    {place.formatted_address ? <p>{place.formatted_address}</p> : <p>No address available</p>}
-                                    {place.formatted_phone_number ? <p>{place.formatted_phone_number}</p> : <p>No phone number available</p>}
-                                    {place.website ? <a href={place.website}>To website</a> : <p>No website available</p>}
-                                </div>
+                                return <Card place={place}/>
                             })}
 
                             </Grid>

@@ -1,7 +1,8 @@
 import {
     GET_USER_LOCATION,
     SET_USER_GEOLOCATION,
-    GET_PLACES_INFORMATION
+    GET_PLACES_INFORMATION,
+    CLEAR_PLACES
 } from '../types'
 
 export default (state, action) => {
@@ -23,6 +24,11 @@ export default (state, action) => {
             return {
                 ...state,
                 places: state.places.concat(action.payload)
+            }
+        case CLEAR_PLACES:
+            return {
+                ...state,
+                places: []
             }
         default:
             return state

@@ -5,7 +5,8 @@ import userLocationReducer from './userLocationReducer'
 import {
     GET_USER_LOCATION,
     SET_USER_GEOLOCATION,
-    GET_PLACES_INFORMATION
+    GET_PLACES_INFORMATION,
+    CLEAR_PLACES
 } from '../types'
 
 const UserLocationState = props => {
@@ -51,6 +52,7 @@ const UserLocationState = props => {
     }
 
     const getPlacesInformation = (location) => {
+        clearPlaces()
         fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=1500&key=${API_KEY}`)
         .then((res) => res.json())
         .then((data) => {
@@ -65,6 +67,12 @@ const UserLocationState = props => {
                     })
                 })
             })
+        })
+    }
+
+    const clearPlaces = () => {
+        dispatch({
+            type: CLEAR_PLACES
         })
     }
 
