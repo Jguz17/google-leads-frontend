@@ -12,9 +12,9 @@ const Card = (props) => {
                 }}>{props.place.name}</h1>
                 <hr/>
                 <div className='place-content-container'>
-                    {props.place.formatted_address ? <p>{props.place.formatted_address}</p> : <p>No address available</p>}
-                    {props.place.formatted_phone_number ? <p>{props.place.formatted_phone_number}</p> : <p>No phone number available</p>}
-                    {props.place.website ? <a href={props.place.website}>To website</a> : <p>No website available</p>}
+                    {props.place.formatted_address ? <p>{props.place.formatted_address}</p> : <p style={{color: '#A7A7A7'}}>No address available</p>}
+                    {props.place.formatted_phone_number ? <p>{props.place.formatted_phone_number}</p> : <p style={{color: '#A7A7A7'}}>No phone number available</p>}
+                    {props.place.website ? <a href={props.place.website}>Go to website</a> : <p style={{color: '#A7A7A7'}}>No website available</p>}
                 </div>
             </div>
     )

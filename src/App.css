@@ -91,3 +91,8 @@ body {
   padding-top: 1.5rem;
   line-height: 2rem;
 }
+
+.place-content-container a {
+  color: #0073BD;
+  text-decoration: none;
+}
