@@ -43,11 +43,8 @@ body {
   padding-left: 3.5rem;
   font-size: 1.5rem;
   margin-top: 3rem;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
   font-family: 'roboto-light';
-}
-
-.cards {
 }
 
 #hr {
@@ -95,4 +92,28 @@ body {
 .place-content-container a {
   color: #0073BD;
   text-decoration: none;
+}
+
+#user-address {
+  font-size: 2rem;
+  font-family: 'roboto-light';
+  color: #a7a7a7;
+}
+
+.page-buttons {
+  width: 100px;
+  /* height: 40px; */
+}
+
+#previous {
+  margin-right: 2rem;
+  background-color: #fff;
+  color: #0073bd;
+  border-radius: 12.5px;
+}
+
+#next {
+  background-color: #fff;
+  color: #0073bd;
+  border-radius: 12.5px;
 }

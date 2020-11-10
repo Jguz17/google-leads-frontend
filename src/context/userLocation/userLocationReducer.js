@@ -4,7 +4,8 @@ import {
     GET_PLACES_INFORMATION,
     CLEAR_PLACES,
     SET_NEXT_PAGE_TOKEN,
-    SET_CURRENT_PAGE
+    SET_CURRENT_PAGE,
+    SET_PAGE_BACK
 } from '../types'
 
 export default (state, action) => {
@@ -41,6 +42,11 @@ export default (state, action) => {
             return {
                 ...state,
                 currentPage: state.currentPage + 1
+            }
+        case SET_PAGE_BACK: 
+            return {
+                ...state, 
+                currentPage: state.currentPage - 1
             }
         default:
             return state

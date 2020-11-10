@@ -4,12 +4,13 @@ import Navbar from '../layout/Navbar'
 import Search from '../layout/Search'
 import UserLocationContext from '../../context/userLocation/userLocationContext'
 import Card from '../layout/cards/Card'
+import Button from '@material-ui/core/Button';
 
 const Home = () => {
 
     const userLocationContext = useContext(UserLocationContext)
 
-    const { places, currentPage, handleClick } = userLocationContext
+    const { userAddress, places, currentPage, next, back } = userLocationContext
 
     const colors = ['#0073BD', '#FF6B6B', '#DC901C', '#00B776']
 
@@ -19,9 +20,12 @@ const Home = () => {
                     <Grid item xs={12}> 
                         <Search/>
                     </Grid>
-                    <Grid item xs={12}>
-                        {currentPage >= 2 && currentPage <= 3 ? <button>Back</button> : null}
-                        { currentPage >= 1 && currentPage < 3 ? <button onClick={handleClick}>Next</button> : null }
+                    <Grid item xs={12} style={{justifyContent: 'center', display: 'flex'}}>
+                        { userAddress.length > 1 ? <p id='user-address'>Results near {userAddress}</p> : null }
+                    </Grid>
+                    <Grid item xs={12} style={{margin: '2rem 0', display: 'flex', "justifyContent": 'center'}}>
+                        { currentPage >= 2 && currentPage <= 3 ? <Button variant='contained' className='page-buttons' id='previous' onClick={back}>Previous</Button> : null }
+                        { currentPage >= 1 && currentPage < 3 ? <Button variant='contained' className='page-buttons' id='next' onClick={next}>Next</Button> : null }
                     </Grid>
                     {places.length > 1 ? 
                             <Grid container item xs={12} style={{justifyContent: 'space-around'}}>
