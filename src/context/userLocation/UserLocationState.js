@@ -154,7 +154,7 @@ const UserLocationState = props => {
         }) 
     
         } else {
-            fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&key=${API_KEY}&pagetoken=${state.pageTokens[state.currentPage]}`)
+            fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&key=${API_KEY}&pagetoken=${state.pageTokens[1]}`)
             .then((res) => res.json())
             .then((data) => {
                 console.log(data)
