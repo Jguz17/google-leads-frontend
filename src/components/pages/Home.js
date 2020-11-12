@@ -1,7 +1,5 @@
 import React, { useContext } from 'react'
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core'
-import Navbar from '../layout/Navbar'
 import Search from '../layout/Search'
 import UserLocationContext from '../../context/userLocation/userLocationContext'
 import Card from '../layout/cards/Card'
