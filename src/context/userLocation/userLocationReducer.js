@@ -2,7 +2,10 @@ import {
     GET_USER_LOCATION,
     SET_USER_GEOLOCATION,
     GET_PLACES_INFORMATION,
-    CLEAR_PLACES
+    CLEAR_PLACES,
+    SET_NEXT_PAGE_TOKEN,
+    SET_CURRENT_PAGE,
+    SET_PAGE_BACK
 } from '../types'
 
 export default (state, action) => {
@@ -29,6 +32,21 @@ export default (state, action) => {
             return {
                 ...state,
                 places: []
+            }
+        case SET_NEXT_PAGE_TOKEN:
+            return {
+                ...state,
+                pageTokens: state.pageTokens.concat(action.payload)
+            }
+        case SET_CURRENT_PAGE: 
+            return {
+                ...state,
+                currentPage: state.currentPage + 1
+            }
+        case SET_PAGE_BACK: 
+            return {
+                ...state, 
+                currentPage: state.currentPage - 1
             }
         default:
             return state

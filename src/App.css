@@ -22,13 +22,19 @@ body {
   background-color: var(--primary-color);
 }
 
+button {
+
+}
+
 #page-title {
   font-family: "roboto-light";
 }
 
-#search {
+.search-container {
   height: 64px;
   border: none;
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
   border-radius: 50px;
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 
   0px 4px 5px 0px rgba(0,0,0,0.14), 
@@ -39,19 +45,49 @@ body {
   -moz-box-shadow-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 
   0px 4px 5px 0px rgba(0,0,0,0.14), 
   0px 1px 10px 0px rgba(0,0,0,0.12);
-  outline: none;
-  padding-left: 3.5rem;
-  font-size: 1.5rem;
   margin-top: 3rem;
-  margin-bottom: 4rem;
-  font-family: 'roboto-light';
+  margin-bottom: 1rem;
+  background-color: #fff;
 }
 
-.cards {
+#search{
+  background-color: transparent;
+  border: none;
+  height: 64px;
+  outline: none;
+  font-size: 1.5rem;
+  font-family: 'roboto-light';
+  border-radius: 50px;
+  width: 75%;
+}
+
+#dropdown {
+  border: none;
+  color: #a7a7a7;
+  font-size: 1.5rem;
+  font-family: 'roboto-light';
+  outline: none;
+  max-width: 100px;
+}
+
+#dropdown:hover {
+  cursor: pointer;
 }
 
 #hr {
   padding: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .card {
@@ -90,4 +126,52 @@ body {
 .place-content-container {
   padding-top: 1.5rem;
   line-height: 2rem;
+}
+
+.place-content-container a {
+  color: #0073BD;
+  text-decoration: none;
+}
+
+#user-address {
+  font-size: 2rem;
+  font-family: 'roboto-light';
+  color: #a7a7a7;
+  margin: 1rem;
+}
+
+.page-buttons {
+  width: 100px;
+  /* height: 40px; */
+}
+
+#previous {
+  margin-right: 2rem;
+  background-color: #fff;
+  color: #0073bd;
+  border-radius: 12.5px;
+}
+
+#next {
+  background-color: #fff;
+  color: #0073bd;
+  border-radius: 12.5px;
+}
+
+#submit-button {
+  background-color: #fff;
+  color: #0073bd;
+  border-radius: 12.5px;
+}
+
+#radius-input {
+  border: none;
+  color: #a7a7a7;
+  border-bottom: 1px solid #a7a7a7;
+  background-color: transparent;
+  outline: none;
+  font-size: 1.5rem;
+  font-family: 'roboto-light';
+  text-align: center;
+  margin-bottom: 1rem;
 }
