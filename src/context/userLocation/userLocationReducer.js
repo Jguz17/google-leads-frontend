@@ -6,7 +6,6 @@ import {
     SET_NEXT_PAGE_TOKEN,
     SET_CURRENT_PAGE,
     SET_PAGE_BACK,
-    SET_USER_RADIUS,
     SET_PLACES_TYPE
 } from '../types'
 
@@ -54,11 +53,6 @@ export default (state, action) => {
             return {
                 ...state,
                 placesType: action.payload
-            }
-        case SET_USER_RADIUS:
-            return {
-                ...state,
-                userRadiusInMeters: action.payload
             }
         default:
             return state

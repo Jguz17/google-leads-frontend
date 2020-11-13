@@ -4,13 +4,12 @@ import Search from '../layout/Search'
 import UserLocationContext from '../../context/userLocation/userLocationContext'
 import Card from '../layout/cards/Card'
 import Button from '@material-ui/core/Button';
-import RadiusInput from '../layout/RadiusInput'
 
 const Home = () => {
 
     const userLocationContext = useContext(UserLocationContext)
 
-    const { userAddress, places, currentPage, next, back } = userLocationContext
+    const { getAddress, userAddress, places, currentPage, next, back } = userLocationContext
 
     const colors = ['#0073BD', '#FF6B6B', '#DC901C', '#00B776']
 
@@ -21,10 +20,12 @@ const Home = () => {
                         <Search/>
                     </Grid>
                     <Grid xs={12} style={{display: 'flex', justifyContent: 'center'}} >
-                       <RadiusInput/>
-                    </Grid>
-                    <Grid xs={12} style={{display: 'flex', justifyContent: 'center'}} >
-                        <Button id='submit-button' variant='contained'>Submit</Button>
+                        <Button onClick={() => {
+                            const type = document.querySelector('#dropdown').value
+                            const address = document.querySelector('#search').value
+                            
+                            getAddress(address, type)
+                        }} id='submit-button' variant='contained'>Submit</Button>
                     </Grid>
                     <Grid item xs={12} style={{justifyContent: 'center', display: 'flex'}}>
                         { userAddress.length > 1 ? <p id='user-address'>Results near {userAddress}</p> : null }
