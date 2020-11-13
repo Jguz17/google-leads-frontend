@@ -11,6 +11,7 @@ import {
     SET_CURRENT_PAGE,
     SET_PAGE_BACK,
     SET_PLACES_TYPE,
+    RESET_PAGE
 } from '../types'
 
 const UserLocationState = props => {
@@ -32,7 +33,7 @@ const UserLocationState = props => {
     const API_KEY = 'AIzaSyBSoo1JXXAtBhXQbkxDVhYGxUJdAwBOPk4'
 
     // Get user address
-    const getAddress = (text, type, radius) => {
+    const getAddress = (text, type) => {
         if (text.length > 1) {
             // console.log(document.querySelector('#radius-input').value)
             setPlacesType(type)
@@ -49,7 +50,7 @@ const UserLocationState = props => {
                 .then((res) => res.json())
                 .then((data) => {
                     setUserGeolocation(data.result.geometry.location)
-                    getPlacesInformation(data.result.geometry.location, radius, type) 
+                    getPlacesInformation(data.result.geometry.location, type) 
                 })
             }))
         }
@@ -62,8 +63,10 @@ const UserLocationState = props => {
         })
     }
 
-    const getPlacesInformation = (location, radius, type) => {
+    const getPlacesInformation = (location, type) => {
+        console.log(type)
         clearPlaces()
+        // resetPage()
         fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${state.userRadiusInMeters}&type=${type}&key=${API_KEY}`)
         .then((res) => res.json())
         .then((data) => {
@@ -84,7 +87,6 @@ const UserLocationState = props => {
                     })
                 })
             })
-
             setNextPage()
         })
 
@@ -108,27 +110,51 @@ const UserLocationState = props => {
         clearPlaces()
         setNextPage()
 
-        fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&type=${state.placesType}&key=${API_KEY}&pagetoken=${state.pageTokens[state.currentPage]}`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data)
+        if (state.placesType.length > 1) {
+            fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&type=${state.placesType}&key=${API_KEY}&pagetoken=${state.pageTokens[state.currentPage]}`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
 
-            if (data.next_page_token) {
-                setNextPageToken(data.next_page_token)
-            }
+                if (data.next_page_token) {
+                    setNextPageToken(data.next_page_token)
+                }
 
-            data.results.map(place => {
-                fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${place.place_id}&key=${API_KEY}`)
-                .then((res) => res.json())
-                .then((data) => {
-                    // console.log(data.result)
-                    dispatch({
-                        type: GET_PLACES_INFORMATION,
-                        payload: data.result
+                data.results.map(place => {
+                    fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${place.place_id}&key=${API_KEY}`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        // console.log(data.result)
+                        dispatch({
+                            type: GET_PLACES_INFORMATION,
+                            payload: data.result
+                        })
                     })
                 })
-            })
-        }) 
+            }) 
+        } else {
+            fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&key=${API_KEY}&pagetoken=${state.pageTokens[state.currentPage]}`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+
+                if (data.next_page_token) {
+                    setNextPageToken(data.next_page_token)
+                }
+
+                data.results.map(place => {
+                    fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${place.place_id}&key=${API_KEY}`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        // console.log(data.result)
+                        dispatch({
+                            type: GET_PLACES_INFORMATION,
+                            payload: data.result
+                        })
+                    })
+                })
+            }) 
+        }
     }
 
     const back = () => {
@@ -137,27 +163,26 @@ const UserLocationState = props => {
 
         if (state.currentPage === 2) {
             fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&type=${state.placesType}&key=${API_KEY}`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
 
-            if (data.next_page_token) {
-                setNextPageToken(data.next_page_token)
-            }
+                if (data.next_page_token) {
+                    setNextPageToken(data.next_page_token)
+                }
 
-            data.results.map(place => {
-                fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${place.place_id}&key=${API_KEY}`)
-                .then((res) => res.json())
-                .then((data) => {
-                    // console.log(data.result)
-                    dispatch({
-                        type: GET_PLACES_INFORMATION,
-                        payload: data.result
+                data.results.map(place => {
+                    fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${place.place_id}&key=${API_KEY}`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        // console.log(data.result)
+                        dispatch({
+                            type: GET_PLACES_INFORMATION,
+                            payload: data.result
+                        })
                     })
                 })
-            })
-        }) 
-    
+            }) 
         } else {
             fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&type=${state.placesType}&key=${API_KEY}&pagetoken=${state.pageTokens[1]}`)
             .then((res) => res.json())
@@ -204,6 +229,12 @@ const UserLocationState = props => {
                 payload: type
             })
         }
+    }
+
+    const resetPage = () => {
+        dispatch({
+            type: RESET_PAGE
+        })
     }
 
     return (
