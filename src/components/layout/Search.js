@@ -10,8 +10,11 @@ const Search = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const type = document.querySelector('#dropdown').value
         const address = document.querySelector('#search').value
-        getAddress(address)
+        const radius = document.querySelector('#radius-input').value
+        
+        getAddress(address, type, radius)
     }
 
     const types = [

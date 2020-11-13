@@ -9,9 +9,10 @@ import {
     CLEAR_PLACES,
     SET_NEXT_PAGE_TOKEN,
     SET_CURRENT_PAGE,
-    SET_PAGE_BACK
+    SET_PAGE_BACK,
+    SET_PLACES_TYPE,
+    SET_USER_RADIUS
 } from '../types'
-import { render } from '@testing-library/react'
 
 const UserLocationState = props => {
     const initialState = {
@@ -20,9 +21,11 @@ const UserLocationState = props => {
             lat: '',
             lng: ''
         },
+        userRadiusInMeters: 1500,
+        placesType: '',
         places: [],
         pageTokens: [''],
-        currentPage: 0
+        currentPage: 0,
     }
 
     const [state, dispatch] = useReducer(userLocationReducer, initialState)
@@ -30,24 +33,28 @@ const UserLocationState = props => {
     const API_KEY = 'AIzaSyBSoo1JXXAtBhXQbkxDVhYGxUJdAwBOPk4'
 
     // Get user address
-    const getAddress = (text) => {
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${text}&key=${API_KEY}`)
-        .then((res) => res.json())
-        .then((data => {
-            console.log(data)
-            dispatch({
-                type: GET_USER_LOCATION,
-                payload: data.results[0].formatted_address
-            })
-            let placeid = data.results[0].place_id
-            fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeid}&key=${API_KEY}`)
+    const getAddress = (text, type, radius) => {
+        if (text.length > 1) {
+            // console.log(document.querySelector('#radius-input').value)
+            setUserRadius(radius)
+            setPlacesType(type)
+            fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${text}&key=${API_KEY}`)
             .then((res) => res.json())
-            .then((data) => {
-                console.log(data.result.geometry.location)
-                setUserGeolocation(data.result.geometry.location)
-                getPlacesInformation(data.result.geometry.location)
-            })
-        }))
+            .then((data => {
+                console.log(data)
+                dispatch({
+                    type: GET_USER_LOCATION,
+                    payload: data.results[0].formatted_address
+                })
+                let placeid = data.results[0].place_id
+                fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeid}&key=${API_KEY}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    setUserGeolocation(data.result.geometry.location)
+                    getPlacesInformation(data.result.geometry.location, radius, type) 
+                })
+            }))
+        }
     }
 
     const setUserGeolocation = (location) => {
@@ -57,9 +64,9 @@ const UserLocationState = props => {
         })
     }
 
-    const getPlacesInformation = (location) => {
+    const getPlacesInformation = (location, radius, type) => {
         clearPlaces()
-        fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=1500&key=${API_KEY}`)
+        fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${state.userRadiusInMeters}&type=${type}&key=${API_KEY}`)
         .then((res) => res.json())
         .then((data) => {
             console.log(data)
@@ -82,6 +89,58 @@ const UserLocationState = props => {
 
             setNextPage()
         })
+
+        // if (state.placesType && state.radius >= 1) {
+        //     fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${state.userRadiusInMeters}&type=${state.placesType}&key=${API_KEY}`)
+        //     .then((res) => res.json())
+        //     .then((data) => {
+        //         console.log(data)
+
+        //         if (data.next_page_token) {
+        //             setNextPageToken(data.next_page_token)
+        //         }
+
+        //         data.results.map(place => {
+        //             fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${place.place_id}&key=${API_KEY}`)
+        //             .then((res) => res.json())
+        //             .then((data) => {
+        //                 // console.log(data.result)
+        //                 dispatch({
+        //                     type: GET_PLACES_INFORMATION,
+        //                     payload: data.result
+        //                 })
+        //             })
+        //         })
+
+        //         setNextPage()
+        //     })
+        // } else if (state.placesType.length < 1 ) {
+        //     fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${state.userRadiusInMeters}&key=${API_KEY}`)
+        //     .then((res) => res.json())
+        //     .then((data) => {
+        //         console.log(data)
+
+        //         if (data.next_page_token) {
+        //             setNextPageToken(data.next_page_token)
+        //         }
+
+        //         data.results.map(place => {
+        //             fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid=${place.place_id}&key=${API_KEY}`)
+        //             .then((res) => res.json())
+        //             .then((data) => {
+        //                 // console.log(data.result)
+        //                 dispatch({
+        //                     type: GET_PLACES_INFORMATION,
+        //                     payload: data.result
+        //                 })
+        //             })
+        //         })
+
+        //         setNextPage()
+        //     })
+        // } else {
+           
+        // }
     }
 
     const clearPlaces = () => {
@@ -91,8 +150,6 @@ const UserLocationState = props => {
     }
 
     const setNextPageToken = (token) => {
-        // console.log(location)
-
         dispatch({
             type: SET_NEXT_PAGE_TOKEN,
             payload: token
@@ -103,7 +160,7 @@ const UserLocationState = props => {
         clearPlaces()
         setNextPage()
 
-        fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&key=${API_KEY}&pagetoken=${state.pageTokens[state.currentPage]}`)
+        fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&type=${state.placesType}&key=${API_KEY}&pagetoken=${state.pageTokens[state.currentPage]}`)
         .then((res) => res.json())
         .then((data) => {
             console.log(data)
@@ -131,7 +188,7 @@ const UserLocationState = props => {
         setPageBack()
 
         if (state.currentPage === 2) {
-            fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&key=${API_KEY}`)
+            fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&type=${state.placesType}&key=${API_KEY}`)
         .then((res) => res.json())
         .then((data) => {
             console.log(data)
@@ -154,7 +211,7 @@ const UserLocationState = props => {
         }) 
     
         } else {
-            fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&key=${API_KEY}&pagetoken=${state.pageTokens[1]}`)
+            fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${state.userGeolocation.lat},${state.userGeolocation.lng}&radius=1500&type=${state.placesType}&key=${API_KEY}&pagetoken=${state.pageTokens[1]}`)
             .then((res) => res.json())
             .then((data) => {
                 console.log(data)
@@ -190,6 +247,25 @@ const UserLocationState = props => {
         dispatch({
             type: SET_PAGE_BACK
         })
+    }
+
+    const setUserRadius = (radius) => {
+        if (radius) {
+            const radiusInMeters = Math.round(radius * radius * 1609.34)
+            dispatch({
+                type: SET_USER_RADIUS,
+                payload: radiusInMeters
+            })
+        }
+    }
+
+    const setPlacesType = (type) => {
+        if (type) {
+            dispatch({
+                type: SET_PLACES_TYPE,
+                payload: type
+            })
+        }
     }
 
     return (
