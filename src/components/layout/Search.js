@@ -10,8 +10,6 @@ const Search = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const address = document.querySelector('#search').value
-        getAddress(address)
     }
 
     const types = [
@@ -115,7 +113,7 @@ const Search = () => {
 
     return (
             <div className='search-container'>
-                <form onSubmit={handleSubmit} style={{display: 'flex', justifyContent: 'space-between'}}>
+                <form onSubmit={(e) => e.preventDefault()} style={{display: 'flex', justifyContent: 'space-between'}}>
                     <input id='search' placeholder='Enter an address here'/>
                     <select id='dropdown'>
                         <option value='0'>Type:</option>
