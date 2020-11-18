@@ -22,6 +22,28 @@ body {
   background-color: var(--primary-color);
 }
 
+a {
+  color: #000;
+  text-decoration: none;
+  font-family: 'roboto-light';
+}
+
+ul li {
+  list-style-type: none;
+}
+
+.navlinks {
+  flex-grow: 1;
+}
+
+.navlinks li {
+  display: inline-block;
+}
+
+.navlinks li:nth-child(1) {
+  padding-right: 1rem;
+}
+
 button {
 
 }
