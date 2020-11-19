@@ -40,7 +40,7 @@ ul li {
   display: inline-block;
 }
 
-.navlinks li:nth-child(1) {
+.navlinks li:not(:last-child) {
   padding-right: 1rem;
 }
 
@@ -146,7 +146,6 @@ select:-webkit-autofill:focus {
 }
 
 .place-content-container {
-  padding-top: 1.5rem;
   line-height: 2rem;
 }
 
@@ -180,9 +179,33 @@ select:-webkit-autofill:focus {
   border-radius: 12.5px;
 }
 
+#update {
+  margin-right: 1rem;
+  background-color: #0073bd;
+  color: #fff;
+  border-radius: 12.5px;
+}
+
+#delete {
+  background-color: #FF6B6B;
+  color: #fff;
+  border-radius: 12.5px;}
+
 #submit-button {
   background-color: #fff;
   color: #0073bd;
+  border-radius: 12.5px;
+}
+
+#add-to-user-places {
+  background-color: #0073bd;
+  color: #E8EDF1;
+  border-radius: 12.5px;
+}
+
+#user-create-place {
+  background-color: #0073bd;
+  color: #E8EDF1;
   border-radius: 12.5px;
 }
 

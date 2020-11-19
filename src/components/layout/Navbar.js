@@ -45,6 +45,9 @@ export default function Navbar() {
                         <Link to='/home'>Home</Link>
                       </li>
                       <li>
+                        <Link to='/myplaces'>My Places</Link>
+                      </li>
+                      <li>
                         <Link to='/'>Welcome</Link>
                       </li>
                     </ul>

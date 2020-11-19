@@ -1,4 +1,7 @@
 import React, { useContext } from 'react'
+import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
+
 
 const Card = (props) => {
     const colors = ['#0073BD', '#FF6B6B', '#DC901C', '#00B776']
@@ -12,9 +15,16 @@ const Card = (props) => {
                 }}>{props.place.name}</h1>
                 <hr/>
                 <div className='place-content-container'>
+                    {/* <div className='home-buttons-container'>
+                        <Icon className='fas fa-plus-circle' style={{color: '#0073BD'}}/>
+                    </div> */}
+                    <div className='home-buttons-container'>
+                        <Button variant='contained' id='add-to-user-places'><i class="fas fa-plus" style={{paddingRight: '.75rem'}}/>Add To My Places</Button>
+                    </div>
                     {props.place.formatted_address ? <p>{props.place.formatted_address}</p> : <p style={{color: '#A7A7A7'}}>No address available</p>}
                     {props.place.formatted_phone_number ? <p>{props.place.formatted_phone_number}</p> : <p style={{color: '#A7A7A7'}}>No phone number available</p>}
                     {props.place.website ? <a href={props.place.website}>Go to website</a> : <p style={{color: '#A7A7A7'}}>No website available</p>}
+
                 </div>
             </div>
     )
