@@ -209,6 +209,18 @@ select:-webkit-autofill:focus {
   border-radius: 12.5px;
 }
 
+#create {
+  background-color: #A0FFD7;
+  border-radius: 10px;
+  margin-right: 2rem;
+}
+
+#close {
+  background-color: #FF6B6B;
+  color: #E8EDF1;
+  border-radius: 10px;
+}
+
 #radius-input {
   border: none;
   color: #a7a7a7;
@@ -219,4 +231,53 @@ select:-webkit-autofill:focus {
   font-family: 'roboto-light';
   text-align: center;
   margin-bottom: 1rem;
+}
+
+.place-form-container {
+  background-color: #fff;
+  width: 700px;
+  height: 400px;
+  margin: 0 auto;
+  transform: translate(50%, 35%);
+  border-radius: 20px;
+  padding: 1rem;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.place-form-inputs {
+  width: 100%;
+  font-size: 1.75rem;
+  font-family: 'roboto-light';
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 
+  0px 4px 5px 0px rgba(0,0,0,0.14), 
+  0px 1px 10px 0px rgba(0,0,0,0.12);
+  -webkit-box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 
+  0px 4px 5px 0px rgba(0,0,0,0.14), 
+  0px 1px 10px 0px rgba(0,0,0,0.12);
+  -moz-box-shadow-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 
+  0px 4px 5px 0px rgba(0,0,0,0.14), 
+  0px 1px 10px 0px rgba(0,0,0,0.12);
+  margin-bottom: 1.5rem;
+  border: none;
+  background-color: #E8EDF1;
+  padding-left: 1rem;
+  outline: none;
+  height: 2.5rem;
+}
+
+.place-form-inputs::placeholder {
+  color: #a7a7a7;
+  opacity: 1; /* Firefox */
+}
+
+.place-form-inputs:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: #a7a7a7;
+}
+
+.place-form-inputs::-ms-input-placeholder { /* Microsoft Edge */
+ color: #a7a7a7;
 }
