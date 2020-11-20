@@ -1,9 +1,33 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Button from '@material-ui/core/Button';
+import UserPlacesContext from '../../../context/userPlaces/userPlacesContext'
+import CreateNewPlacePopUpContext from '../../../context/createNewPlacePopUp/createNewPlacePopUpContext'
+import PopupTypeContext from '../../../context/popupType/popupTypeContext'
 
 const UserPlaceItem = (props) => {
 
     const colors = ['#0073BD', '#FF6B6B', '#DC901C', '#00B776']
+
+    const userPlacesContext = useContext(UserPlacesContext)
+    const createNewPlacePopUpContext = useContext(CreateNewPlacePopUpContext)
+    const popupTypeContext = useContext(PopupTypeContext)
+
+    const { deletePlace, setCurrent, deleteCurrent } = userPlacesContext
+    const { turnActivatedStateOn } = createNewPlacePopUpContext
+    const { setPopupType } = popupTypeContext
+
+    const { id } = props.place
+
+    const handleDelete = (e) => {
+        deletePlace(id)
+        deleteCurrent()
+    }
+
+    const handleClick = () => {
+        setCurrent(props.place)
+        turnActivatedStateOn()
+        setPopupType('UPDATE')
+    }
 
     return (
         <div className='card'>
@@ -13,8 +37,8 @@ const UserPlaceItem = (props) => {
                 }}>{props.place.name}</h1>
                 <hr/>
                 <div className='user-buttons-container' style={{ marginTop: '.5rem' }}>
-                    <Button variant='contained' className='page-buttons' id='update'>Update</Button>
-                    <Button variant='contained' className='page-buttons' id='delete'>Delete</Button>
+                    <Button variant='contained' className='page-buttons' id='update' onClick={handleClick}>Update</Button>
+                    <Button variant='contained' onClick={handleDelete} className='page-buttons' id='delete'>Delete</Button>
                 </div>
                 <div className='place-content-container'>
                     {props.place.address ? <p>{props.place.address}</p> : <p style={{color: '#A7A7A7'}}>No address available</p>}

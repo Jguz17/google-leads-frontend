@@ -5,6 +5,7 @@ import CreateNewPlacePopUpContext from '../../../context/createNewPlacePopUp/cre
 import PopupTypeContext from '../../../context/popupType/popupTypeContext'
 import UserPlaceItem from './UserPlaceItem'
 import Button from '@material-ui/core/Button';
+import UserPlacesFilter from '../../layout/UserPlacesFilter'
 
 const UserPlaces = () => {
 
@@ -12,7 +13,7 @@ const UserPlaces = () => {
     const createNewPlacePopUpContext = useContext(CreateNewPlacePopUpContext)
     const popupTypeContext = useContext(PopupTypeContext)
 
-    const { places } = userPlacesContext
+    const { places, filtered } = userPlacesContext
     const { turnActivatedStateOn } = createNewPlacePopUpContext
     const { setPopupType } = popupTypeContext
 
@@ -20,6 +21,9 @@ const UserPlaces = () => {
 
     return (
         <Grid container item>
+            <Grid container item xs={12}>
+                <UserPlacesFilter/>
+            </Grid>
             <Grid container item xs={12} style={{ justifyContent: 'center', padding: '1rem 1rem 2rem 0' }}>
                 <Button onClick={() => {
                     turnActivatedStateOn()
@@ -27,7 +31,9 @@ const UserPlaces = () => {
                 }} id='user-create-place' variant='contained'>Create New Place</Button>
             </Grid>
             <Grid container item xs={12} style={{justifyContent: 'space-around'}}>
-                {places.map(place => {
+                {filtered !== null ? filtered.map(place => {
+                    return <UserPlaceItem key={place.id} place={place}/>
+                }) : places.map(place => {
                     return <UserPlaceItem key={place.id} place={place}/>
                 })}
             </Grid>
