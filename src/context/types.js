@@ -10,6 +10,16 @@ export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 export const SET_PAGE_BACK = 'SET_PAGE_BACK'
 export const RESET_PAGE = 'RESET_PAGE'
 
+// ==== AUTH ====
+export const EXPORT_SUCCESS = 'EXPORT_SUCCESS'
+export const EXPORT_FAIL = 'EXPORT_FAIL'
+export const USER_LOADED = 'USER_LOADED'
+export const AUTH_ERROR = 'AUTH_ERROR'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAIL = 'LOGIN_FAIL'
+export const LOGOUT = 'LOGOUT'
+export const CLEAR_ERRORS = 'CLEAR_ERRORS'
+
 // ==== USER PLACES ====
 export const CREATE_PLACE = 'CREATE_PLACE'
 export const DELETE_PLACE = 'DELETE_PLACE'

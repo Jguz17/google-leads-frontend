@@ -10,6 +10,7 @@ import UserLocationState from '../context/userLocation/UserLocationState'
 import UserPlacesState from '../context/userPlaces/UserPlacesState'
 import CreateNewPlacePopUpState from '../context/createNewPlacePopUp/CreateNewPlacePopUpState'
 import PopupTypeState from '../context/popupType/PopupTypeState'
+import AuthState from '../context/auth/AuthState'
 import { BrowserRouter as Router,
          Switch,
          Route,
@@ -25,25 +26,27 @@ const App = () => {
               <UserPlacesState>
                 <CreateNewPlacePopUpState>
                   <PopupTypeState>
-                    <Grid container direction='column'>
-                      <Grid item xs={12}>
-                        <Background/>
-                      </Grid>
-                      <Grid item xs={12} id='navbar-select'>
-                        <Navbar/>
-                      </Grid>
-                      <Grid container item direction='row'>
-                        <Grid item xs={1}/>
-                        <Grid item xs={10}>
-                          <Switch>
-                            <Route path='/home' component={Home}/>
-                            <Route path='/myplaces' component={UserPlaces}/>
-                            <Route path='/' component={Welcome}/>
-                          </Switch>
+                    <AuthState>
+                      <Grid container direction='column'>
+                        <Grid item xs={12}>
+                          <Background/>
                         </Grid>
-                        <Grid item xs={1}/>
+                        <Grid item xs={12} id='navbar-select'>
+                          <Navbar/>
+                        </Grid>
+                        <Grid container item direction='row'>
+                          <Grid item xs={1}/>
+                          <Grid item xs={10}>
+                            <Switch>
+                              <Route path='/home' component={Home}/>
+                              <Route path='/myplaces' component={UserPlaces}/>
+                              <Route path='/' component={Welcome}/>
+                            </Switch>
+                          </Grid>
+                          <Grid item xs={1}/>
+                        </Grid>
                       </Grid>
-                    </Grid>
+                    </AuthState>
                   </PopupTypeState>
                 </CreateNewPlacePopUpState>
               </UserPlacesState>
