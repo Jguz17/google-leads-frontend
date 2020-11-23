@@ -11,8 +11,6 @@ const Home = () => {
 
     const { getAddress, userAddress, places, currentPage, next, back } = userLocationContext
 
-    const colors = ['#0073BD', '#FF6B6B', '#DC901C', '#00B776']
-
     return (
             <div>
                 <Grid item container direction='row'>

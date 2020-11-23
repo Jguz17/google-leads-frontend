@@ -37,10 +37,13 @@ export default function Navbar() {
               <Grid item xs={1}/>
               <Grid item xs={10}>
                 <div className={classes.navbarWrapper}>
-                  <img style={{height: '40px', paddingRight: '1rem'}} src={logo}/> 
+                  <img style={{height: '40px', paddingRight: '1rem'}} src={logo} alt='Google Leads logo'/> 
                   <h1 id='page-title' style={{color: '#000', flexGrow: '1'}}>Google Leads</h1>
                   <div>
                     <ul className='navlinks'>
+                      <li>
+                        <Link to='/'>Welcome</Link>
+                      </li>
                       <li>
                         <Link to='/home'>Home</Link>
                       </li>
@@ -48,7 +51,10 @@ export default function Navbar() {
                         <Link to='/myplaces'>My Places</Link>
                       </li>
                       <li>
-                        <Link to='/'>Welcome</Link>
+                        <Link to='/register'>Signup</Link>
+                      </li>
+                      <li>
+                        <Link to='/login'>Login</Link>
                       </li>
                     </ul>
                   </div>

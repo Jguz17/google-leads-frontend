@@ -13,7 +13,7 @@ import {
     CLEAR_ERRORS
 } from '../types'
 
-const UserPlacesState = (props) => {
+const AuthState = (props) => {
     const initialState = {
         token: localStorage.getItem('token'),
         isAuthenticated: null,
@@ -39,4 +39,4 @@ const UserPlacesState = (props) => {
     )
 }
 
-export default UserPlacesState
+export default AuthState
