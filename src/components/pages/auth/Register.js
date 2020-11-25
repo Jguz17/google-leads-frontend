@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import AlertContext from '../../../context/alerts/alertContext'
+import AuthContext from '../../../context/auth/authContext'
 import Alerts from '../../layout/Alerts'
 
 const useStyles = makeStyles((theme) => ({
@@ -33,8 +34,17 @@ const useStyles = makeStyles((theme) => ({
 const Register = (props) => {
 
   const alertContext = useContext(AlertContext)
+  const authContext = useContext(AuthContext)
   
   const { setAlert } = alertContext
+  const { register, error, clearErrors } = authContext
+
+  useEffect(() => {
+    if (error === 'User already exists') {
+      setAlert(error, 'danger')
+      clearErrors()
+    }
+  }, [error])
 
   const [user, setUser] = useState({
     name: '',
@@ -66,7 +76,11 @@ const Register = (props) => {
     } else if ( password !== password2) {
       setAlert('Passwords do not match', 'danger')
     } else {
-      console.log('Register req')
+      register({
+        name,
+        email,
+        password
+      })
     }
   }
 
