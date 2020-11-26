@@ -8,7 +8,8 @@ import UserPlaces from '../components/pages/userPlaces/UserPlaces'
 import Navbar from '../components/layout/Navbar'
 import Login from '../components/pages/auth/Login'
 import Register from '../components/pages/auth/Register'
-
+import setAuthToken from '../utils/setAuthToken'
+import PrivateRoute from '../components/routing/PrivateRoute'
 import { BrowserRouter as Router,
   Switch,
   Route
@@ -20,6 +21,10 @@ import CreateNewPlacePopUpState from '../context/createNewPlacePopUp/CreateNewPl
 import PopupTypeState from '../context/popupType/PopupTypeState'
 import AuthState from '../context/auth/AuthState'
 import AlertState from '../context/alerts/AlertState'
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token)
+}
 
 const App = () => {
 
@@ -45,8 +50,8 @@ const App = () => {
                               <Switch>
                                 <Route path='/register' component={Register}/>
                                 <Route path='/login' component={Login}/>
-                                <Route path='/home' component={Home}/>
-                                <Route path='/myplaces' component={UserPlaces}/>
+                                <PrivateRoute path='/home' component={Home}/>
+                                <PrivateRoute path='/myplaces' component={UserPlaces}/>
                                 <Route path='/' component={Welcome}/>
                               </Switch>
                             </Grid>

@@ -37,14 +37,19 @@ const Register = (props) => {
   const authContext = useContext(AuthContext)
   
   const { setAlert } = alertContext
-  const { register, error, clearErrors } = authContext
+  const { register, error, clearErrors, isAuthenticated } = authContext
 
   useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/home')
+    }
+
     if (error === 'User already exists') {
       setAlert(error, 'danger')
       clearErrors()
     }
-  }, [error])
+    // eslint-disable-next-line
+  }, [error, setAlert, props.history])
 
   const [user, setUser] = useState({
     name: '',
@@ -81,6 +86,7 @@ const Register = (props) => {
         email,
         password
       })
+      props.history.push('/home')
     }
   }
 

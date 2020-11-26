@@ -7,6 +7,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import AuthContext from '../../../context/auth/authContext'
+import AlertContext from '../../../context/alerts/alertContext'
+import Alerts from '../../layout/Alerts'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,18 +34,51 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = (props) => {
 
+  const alertContext = useContext(AlertContext)
+  const authContext = useContext(AuthContext)
+  
+  const { setAlert } = alertContext
+  const { login, error, clearErrors, isAuthenticated } = authContext
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/home')
+    }
+
+    if (error == 'Invalid credentials') {
+      setAlert(error, 'danger')
+      clearErrors()
+    }
+    // eslint-disable-next-line
+  }, [error, setAlert, props.history])
+
   const [user, setUser] = useState({
     email: '',
     password: ''
   })
 
-  const { name,
-          email
+  const { email,
+          password
   } = user
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value
+    })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('trig')
+    if (email === '' || password === '') {
+      setAlert('Please fill in all fields', 'danger')
+    } else {
+      login({
+        email,
+        password
+      })
+      props.history.push('/home')
+    }
   }
 
   const classes = useStyles();
@@ -65,7 +101,7 @@ const Login = (props) => {
             id="email"
             label="Email"
             name="email"
-            
+            onChange={handleChange}
           />
           <TextField
             variant="outlined"
@@ -75,7 +111,7 @@ const Login = (props) => {
             label="Password"
             type="password"
             id="password"
-            
+            onChange={handleChange}
           />
           <Button
             type="submit"

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Fragment, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import logo from '../../media/magnetic.png'
 import { Grid } from '@material-ui/core'
 import { Link } from 'react-router-dom'
+import AuthContext from '../../context/auth/authContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +30,49 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const classes = useStyles();
 
+  const authContext = useContext(AuthContext)
+
+  const { isAuthenticated, logout, user } = authContext
+
+  const onLogout = () => {
+    logout()
+  }
+
+  const authLinks = (
+    <Fragment>
+      <li style={{
+        color: '#000',
+        textDecoration: 'none',
+        fontFamily: 'roboto-light'
+      }}>Welcome, { user ? user.name : null}</li>
+      <li>
+        <Link to='/home'>Home</Link>
+      </li>
+      <li>
+        <Link to='/myplaces'>My Places</Link>
+      </li>
+      <li>
+        <a onClick={onLogout} href='#!'>
+          <i className='fas fa-sign-out-alt'></i>Logout
+        </a>
+      </li>
+    </Fragment>
+  )
+
+  const guestLinks = (
+    <Fragment>
+      <li>
+        <Link to='/'>Home</Link>
+      </li>
+      <li>
+        <Link to='/register'>Signup</Link>
+      </li>
+      <li>
+        <Link to='/login'>Login</Link>
+      </li>
+    </Fragment>
+  )
+
   return (
       <div>
         <Grid item container>
@@ -41,21 +85,7 @@ export default function Navbar() {
                   <h1 id='page-title' style={{color: '#000', flexGrow: '1'}}>Google Leads</h1>
                   <div>
                     <ul className='navlinks'>
-                      <li>
-                        <Link to='/'>Welcome</Link>
-                      </li>
-                      <li>
-                        <Link to='/home'>Home</Link>
-                      </li>
-                      <li>
-                        <Link to='/myplaces'>My Places</Link>
-                      </li>
-                      <li>
-                        <Link to='/register'>Signup</Link>
-                      </li>
-                      <li>
-                        <Link to='/login'>Login</Link>
-                      </li>
+                      { isAuthenticated ? authLinks : guestLinks}
                     </ul>
                   </div>
                 </div>

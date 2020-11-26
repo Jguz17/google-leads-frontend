@@ -2,6 +2,7 @@ import React, { useReducer } from 'react'
 import AuthContext from '../auth/authContext'
 import authReducer from '../auth/authReducer'
 import axios from 'axios'
+import setAuthToken from '../../utils/setAuthToken'
 
 import {
     REGISTER_SUCCESS,
@@ -26,6 +27,25 @@ const AuthState = (props) => {
 
     const [state, dispatch] = useReducer(authReducer, initialState)
 
+    const loadUser = async () => {
+        if (localStorage.token) {
+            setAuthToken(localStorage.token)
+        }
+
+        try {
+            const res = await axios.get('https://google-leads-backend.herokuapp.com/api/auth')
+
+            dispatch({
+                type: USER_LOADED,
+                payload: res.data
+            })
+        } catch (error) {
+            dispatch({
+                type: AUTH_ERROR
+            })
+        }
+    }
+
     const register = async (formData) => {
         const config = {
             headers: {
@@ -40,6 +60,7 @@ const AuthState = (props) => {
                 type: REGISTER_SUCCESS,
                 payload: res.data
             })
+            loadUser()
         } catch (error) {
             console.log(error)
             dispatch({
@@ -47,6 +68,36 @@ const AuthState = (props) => {
                 payload: error.response.data.message
             })
         }
+    }
+
+    const login = async (formData) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        try {
+            const res = await axios.post('https://google-leads-backend.herokuapp.com/api/auth', formData, config)
+
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: res.data
+            })
+            loadUser()
+        } catch (error) {
+            console.log(error)
+            dispatch({
+                type: LOGIN_FAIL,
+                payload: error
+            })
+        }
+    }
+
+    const logout = () => {
+        dispatch({
+            type: LOGOUT
+        })
     }
 
     const clearErrors = () => {
@@ -63,7 +114,10 @@ const AuthState = (props) => {
             user: state.user,
             error: state.error,
             register,
-            clearErrors
+            clearErrors,
+            loadUser,
+            login,
+            logout
         }}>
             {props.children}
         </AuthContext.Provider>
