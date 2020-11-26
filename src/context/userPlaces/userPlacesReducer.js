@@ -6,6 +6,9 @@ import {
     FILTER_PLACES,
     CLEAR_FILTER,
     UPDATE_PLACE,
+    PLACE_ERROR,
+    GET_PLACES,
+    CLEAR_PLACES,
 } from '../types'
 
 export default (state, action) => {
@@ -13,12 +16,13 @@ export default (state, action) => {
         case CREATE_PLACE:
             return {
                 ...state,
-                places: state.places.concat(action.payload)
+                places: state.places.concat(action.payload),
+                loading: false
             }
         case DELETE_PLACE:
             return {
                 ...state,
-                places: state.places.filter(place => place.id !== action.payload)
+                places: state.places.filter(place => place._id !== action.payload)
             }
         case SET_CURRENT:
             return {
@@ -28,14 +32,18 @@ export default (state, action) => {
         case DELETE_CURRENT:
             return {
                 ...state,
-                current: null
+                current: null,
+                loading: false
             }
         case UPDATE_PLACE:
+            console.log(state.places)
+            console.log(action.payload)
             return {
                 ...state,
                 places: state.places.map(place => 
-                    place.id === action.payload.id ? action.payload : place
-                )
+                    place._id === action.payload._id ? action.payload : place
+                ),
+                loading: false
             }
         case FILTER_PLACES:
             return {
@@ -49,6 +57,25 @@ export default (state, action) => {
             return {
                 ...state,
                 filtered: null
+            }
+        case  PLACE_ERROR:
+            return {
+                ...state,
+                error: action.payload
+            }
+        case GET_PLACES:
+            return {
+                ...state,
+                places: action.payload,
+                loading: false
+            }
+        case CLEAR_PLACES:
+            return {
+                ...state,
+                places: null,
+                filtered: null,
+                error: null,
+                current: null
             }
         default:
             return state

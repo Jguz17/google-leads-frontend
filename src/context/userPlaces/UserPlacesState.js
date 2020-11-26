@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import  { v4 as uuidv4} from 'uuid'
+import axios from 'axios'
 import UserPlacesContext from '../userPlaces/userPlacesContext'
 import userPlacesReducer from '../userPlaces/userPlacesReducer'
 
@@ -11,74 +11,91 @@ import {
     FILTER_PLACES,
     CLEAR_FILTER,
     UPDATE_PLACE,
+    PLACE_ERROR,
+    GET_PLACES,
+    CLEAR_PLACES
 } from '../types'
 
 const UserPlacesState = (props) => {
     const initialState = {
-        places: [
-            {
-                id: 1,
-                name: 'McBronalds',
-                phone: '1110001234',
-                address: '123 fake st, fake city, fake state'
-            },
-            {
-                id: 2,
-                name: 'Fried Chiken Shack',
-                phone: '7730091122',
-                address: '123 fake st, fake city, fake state'
-            },
-            {
-                id: 3,
-                name: 'Taco Land',
-                phone: '3128831122',
-                address: '123 fake st, fake city, fake state'
-            },
-            {
-                id: 4,
-                name: 'Harry\'s Chicken',
-                phone: '8888888888',
-                address: '123 fake st, fake city, fake state'
-            },
-            {
-                id: 5,
-                name: 'Seafood Restaurant',
-                phone: '9999999999',
-                address: '123 fake st, fake city, fake state'
-            },
-            {
-                id: 6,
-                name: 'Burger Queen',
-                phone: '0000005678',
-                address: '123 north fake ave, fake city, fake state'
-            },
-        ],
+        places: null,
         current: null,
-        filtered: null
+        filtered: null,
+        error: null
     }
 
     const [state, dispatch] = useReducer(userPlacesReducer, initialState)
 
-    const createPlace = (place) => {
-        place.id = uuidv4()
-        dispatch({
-            type: CREATE_PLACE,
-            payload: place
-        })
+    const getPlaces = async () => {
+        try {
+            const res = await axios.get('https://google-leads-backend.herokuapp.com/api/places')
+            dispatch({
+                type: GET_PLACES,
+                payload: res.data
+            })
+        } catch (error) {
+            dispatch({
+                type: PLACE_ERROR,
+                payload: error.response.message
+            })
+        }    
     }
 
-    const deletePlace = (id) => {
-        dispatch({
-            type: DELETE_PLACE,
-            payload: id
-        })
+    const createPlace = async (place) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        try {
+            const res = await axios.post('https://google-leads-backend.herokuapp.com/api/places', place, config)
+            dispatch({
+                type: CREATE_PLACE,
+                payload: res.data
+            })
+        } catch (error) {
+            dispatch({
+                type: PLACE_ERROR,
+                payload: error.response.message
+            })
+        }
     }
 
-    const updatePlace = (place) => {
-        dispatch({
-            type: UPDATE_PLACE,
-            payload: place
-        })
+    const deletePlace = async (id) => {
+        try {
+            axios.delete(`https://google-leads-backend.herokuapp.com/api/places/${id}`)
+            dispatch({
+                type: DELETE_PLACE,
+                payload: id
+            })
+        } catch (error) {
+            dispatch({
+                type: PLACE_ERROR,
+                payload: error.response.message
+            })
+        }
+    }
+
+    const updatePlace = async (place) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        try {
+            const res = await axios.put(`https://google-leads-backend.herokuapp.com/api/places/${place._id}`, place, config)
+            dispatch({
+                type: UPDATE_PLACE,
+                payload: res.data
+            })
+        } catch (error) {
+            dispatch({
+                type: PLACE_ERROR,
+                payload: error
+            })
+        }
     }
 
     const filterPlaces = (text) => {
@@ -106,19 +123,28 @@ const UserPlacesState = (props) => {
             type: DELETE_CURRENT
         })
     }
+
+    const clearPlaces = () => {
+        dispatch({
+            type: CLEAR_PLACES
+        })
+    }
     
     return (
         <UserPlacesContext.Provider value={{
             places: state.places,
             current: state.current,
             filtered: state.filtered,
+            error: state.error,
             createPlace,
             deletePlace,
             setCurrent,
             deleteCurrent,
             updatePlace,
             filterPlaces,
-            clearFilteredPlaces
+            clearFilteredPlaces,
+            getPlaces,
+            clearPlaces
         }}>
             {props.children}
         </UserPlacesContext.Provider>

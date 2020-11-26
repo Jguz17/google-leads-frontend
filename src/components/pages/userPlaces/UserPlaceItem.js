@@ -16,10 +16,10 @@ const UserPlaceItem = (props) => {
     const { turnActivatedStateOn } = createNewPlacePopUpContext
     const { setPopupType } = popupTypeContext
 
-    const { id } = props.place
+    const { _id } = props.place
 
     const handleDelete = (e) => {
-        deletePlace(id)
+        deletePlace(_id)
         deleteCurrent()
     }
 

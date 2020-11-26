@@ -40,17 +40,17 @@ const Login = (props) => {
   const { setAlert } = alertContext
   const { login, error, clearErrors, isAuthenticated } = authContext
 
-  useEffect(() => {
-    if (isAuthenticated) {
+  // useEffect(() => {
+    if (localStorage.token) {
       props.history.push('/home')
     }
 
-    if (error == 'Invalid credentials') {
+    if (error === 'Invalid credentials') {
       setAlert(error, 'danger')
       clearErrors()
     }
     // eslint-disable-next-line
-  }, [error, setAlert, props.history])
+  // }, [error, setAlert, props])
 
   const [user, setUser] = useState({
     email: '',
@@ -113,6 +113,7 @@ const Login = (props) => {
             id="password"
             onChange={handleChange}
           />
+          <Alerts/>
           <Button
             type="submit"
             fullWidth

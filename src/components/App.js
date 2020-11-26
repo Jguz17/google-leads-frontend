@@ -48,10 +48,10 @@ const App = () => {
                             <Grid item xs={1}/>
                             <Grid item xs={10}>
                               <Switch>
-                                <Route path='/register' component={Register}/>
-                                <Route path='/login' component={Login}/>
                                 <PrivateRoute path='/home' component={Home}/>
                                 <PrivateRoute path='/myplaces' component={UserPlaces}/>
+                                <Route path='/register' component={Register}/>
+                                <Route path='/login' component={Login}/>
                                 <Route path='/' component={Welcome}/>
                               </Switch>
                             </Grid>

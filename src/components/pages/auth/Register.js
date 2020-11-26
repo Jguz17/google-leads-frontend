@@ -39,8 +39,8 @@ const Register = (props) => {
   const { setAlert } = alertContext
   const { register, error, clearErrors, isAuthenticated } = authContext
 
-  useEffect(() => {
-    if (isAuthenticated) {
+  // useEffect(() => {
+    if (localStorage.token) {
       props.history.push('/home')
     }
 
@@ -49,7 +49,7 @@ const Register = (props) => {
       clearErrors()
     }
     // eslint-disable-next-line
-  }, [error, setAlert, props.history])
+  // }, [error, setAlert, props.history])
 
   const [user, setUser] = useState({
     name: '',

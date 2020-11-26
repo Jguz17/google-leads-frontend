@@ -6,26 +6,22 @@ import PopupTypeContext from '../../../context/popupType/popupTypeContext'
 import UserPlaceItem from './UserPlaceItem'
 import Button from '@material-ui/core/Button';
 import UserPlacesFilter from '../../layout/UserPlacesFilter'
-import AuthContext from '../../../context/auth/authContext'
+import Spinner from '../../layout/spinner/Spinner'
 
 const UserPlaces = () => {
 
     const userPlacesContext = useContext(UserPlacesContext)
     const createNewPlacePopUpContext = useContext(CreateNewPlacePopUpContext)
     const popupTypeContext = useContext(PopupTypeContext)
-    const authContext = useContext(AuthContext)
 
-    const { places, filtered } = userPlacesContext
+    const { places, filtered, getPlaces, loading } = userPlacesContext
     const { turnActivatedStateOn } = createNewPlacePopUpContext
     const { setPopupType } = popupTypeContext
-    const { loadUser } = authContext
 
     useEffect(() => {
-        loadUser()
+        getPlaces()
         // eslint-disable-next-line
     }, [])
-
-    const colors = ['#0073BD', '#FF6B6B', '#DC901C', '#00B776']
 
     return (
         <Grid container item>
@@ -38,13 +34,16 @@ const UserPlaces = () => {
                     setPopupType('CREATE')
                 }} id='user-create-place' variant='contained'>Create New Place</Button>
             </Grid>
-            <Grid container item xs={12} style={{justifyContent: 'space-around'}}>
-                {filtered !== null ? filtered.map(place => {
-                    return <UserPlaceItem key={place.id} place={place}/>
-                }) : places.map(place => {
-                    return <UserPlaceItem key={place.id} place={place}/>
-                })}
-            </Grid>
+            {places !== null && places.length === 0 && !loading ? <h1>No places to show</h1> : null}
+            {places !== null && !loading ? (
+                <Grid container item xs={12} style={{justifyContent: 'space-around'}}>
+                    {filtered !== null ? filtered.map(place => {
+                        return <UserPlaceItem key={place._id} place={place}/>
+                    }) : places.map(place => {
+                        return <UserPlaceItem key={place._id} place={place}/>
+                    })}
+                </Grid>
+            ) : <Spinner/>}
         </Grid>
     )
 }

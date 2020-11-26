@@ -28,6 +28,9 @@ export const DELETE_CURRENT = 'DELETE_CURRENT'
 export const UPDATE_PLACE = 'UPDATE_PLACE'
 export const FILTER_PLACES = 'FILTER_PLACES'
 export const CLEAR_FILTER = 'CLEAR_FILTER'
+export const PLACE_ERROR = 'PLACE_ERROR'
+export const GET_PLACES = 'GET_PLACES'
+export const CLEAR_CONTACTS = 'CLEAR_CONTACTS'
 
 // ==== ALERTS ====
 export const SET_ALERT = 'SET_ALERT'

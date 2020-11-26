@@ -6,6 +6,7 @@ import logo from '../../media/magnetic.png'
 import { Grid } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import AuthContext from '../../context/auth/authContext'
+import UserPlacesContext from '../../context/userPlaces/userPlacesContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,11 +32,14 @@ export default function Navbar() {
   const classes = useStyles();
 
   const authContext = useContext(AuthContext)
+  const userPlacesContext = useContext(UserPlacesContext)
 
   const { isAuthenticated, logout, user } = authContext
+  const { clearPlaces } = userPlacesContext
 
   const onLogout = () => {
     logout()
+    clearPlaces()
   }
 
   const authLinks = (
@@ -85,7 +89,7 @@ export default function Navbar() {
                   <h1 id='page-title' style={{color: '#000', flexGrow: '1'}}>Google Leads</h1>
                   <div>
                     <ul className='navlinks'>
-                      { isAuthenticated ? authLinks : guestLinks}
+                      { localStorage.token ? authLinks : guestLinks}
                     </ul>
                   </div>
                 </div>
