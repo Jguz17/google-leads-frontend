@@ -36,8 +36,8 @@ export default (state, action) => {
                 loading: false
             }
         case UPDATE_PLACE:
-            console.log(state.places)
             console.log(action.payload)
+
             return {
                 ...state,
                 places: state.places.map(place => 

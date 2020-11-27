@@ -13,7 +13,7 @@ import {
     UPDATE_PLACE,
     PLACE_ERROR,
     GET_PLACES,
-    CLEAR_PLACES
+    CLEAR_USER_PLACES
 } from '../types'
 
 const UserPlacesState = (props) => {
@@ -83,6 +83,16 @@ const UserPlacesState = (props) => {
                 'Content-Type': 'application/json'
             }
         }
+        
+        // fetch(`https://google-leads-backend.herokuapp.com/api/places/${place._id}`, {
+        //     method: 'PUT',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(place)
+        // })
+        // .then((res) => res.json())
+        // .then((data) => console.log(data))
 
         try {
             const res = await axios.put(`https://google-leads-backend.herokuapp.com/api/places/${place._id}`, place, config)
@@ -90,6 +100,7 @@ const UserPlacesState = (props) => {
                 type: UPDATE_PLACE,
                 payload: res.data
             })
+            getPlaces()
         } catch (error) {
             dispatch({
                 type: PLACE_ERROR,
@@ -126,7 +137,7 @@ const UserPlacesState = (props) => {
 
     const clearPlaces = () => {
         dispatch({
-            type: CLEAR_PLACES
+            type: CLEAR_USER_PLACES
         })
     }
     

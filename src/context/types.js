@@ -30,7 +30,7 @@ export const FILTER_PLACES = 'FILTER_PLACES'
 export const CLEAR_FILTER = 'CLEAR_FILTER'
 export const PLACE_ERROR = 'PLACE_ERROR'
 export const GET_PLACES = 'GET_PLACES'
-export const CLEAR_CONTACTS = 'CLEAR_CONTACTS'
+export const CLEAR_USER_PLACES = 'CLEAR_USER_PLACES'
 
 // ==== ALERTS ====
 export const SET_ALERT = 'SET_ALERT'
