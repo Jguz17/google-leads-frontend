@@ -6,6 +6,9 @@ Google leads is a project that uses the Google Maps Places API. The frontend is 
     <img src="https://imgur.com/a/14cQxJv.jpg" width="220" height="240" />
 </p>
 
+![alt text](https://imgur.com/a/14cQxJv.jpg)
+
+
 ## Installation
 
 After you have cloned this repo, in your cli run: 
