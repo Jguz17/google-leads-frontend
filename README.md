@@ -1,4 +1,4 @@
-# Google Leads Backend
+# Google Leads Frontend
 
 Google leads is a project that uses the Google Maps Places API. The frontend is built with React, Context API for state management, and Material UI. As of 2/21/2021, I have not worked on this project because I am currently focusing on other things at the moment, but I am planning on working on the fullstack features sometime this week!  
 
@@ -12,7 +12,7 @@ After you have cloned this repo, in your cli run:
 npm i && npm start
 ```
 
-And you'll be good to go!
+This will open up the frontend!
 
 ## Usage
 
