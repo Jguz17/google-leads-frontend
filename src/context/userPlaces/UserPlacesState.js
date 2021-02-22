@@ -83,16 +83,6 @@ const UserPlacesState = (props) => {
                 'Content-Type': 'application/json'
             }
         }
-        
-        // fetch(`https://google-leads-backend.herokuapp.com/api/places/${place._id}`, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(place)
-        // })
-        // .then((res) => res.json())
-        // .then((data) => console.log(data))
 
         try {
             const res = await axios.put(`https://google-leads-backend.herokuapp.com/api/places/${place._id}`, place, config)

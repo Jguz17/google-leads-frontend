@@ -28,7 +28,8 @@ const PlaceForm = () => {
             setPlace({
                 name: '',
                 phone: '',
-                website: ''
+                website: '',
+                address: ''
             })
         }
     }, [userPlacesContext, current])
