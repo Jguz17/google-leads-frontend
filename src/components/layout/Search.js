@@ -1,16 +1,6 @@
-import React, { Fragment, useContext } from 'react'
-import UserLocationContext from '../../context/userLocation/userLocationContext'
-
+import React from 'react'
 
 const Search = () => {
-
-    const userLocationContext = useContext(UserLocationContext)
-
-    const { userAddress, getAddress } = userLocationContext
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-    }
 
     const types = [
         'accounting',

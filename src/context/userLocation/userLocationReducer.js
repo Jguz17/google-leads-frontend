@@ -6,7 +6,8 @@ import {
     SET_NEXT_PAGE_TOKEN,
     SET_CURRENT_PAGE,
     SET_PAGE_BACK,
-    SET_PLACES_TYPE
+    SET_PLACES_TYPE,
+    RESET_PAGE
 } from '../types'
 
 export default (state, action) => {
@@ -53,6 +54,11 @@ export default (state, action) => {
             return {
                 ...state,
                 placesType: action.payload
+            }
+        case RESET_PAGE:
+            return {
+                ...state,
+                currentPage: 0
             }
         default:
             return state

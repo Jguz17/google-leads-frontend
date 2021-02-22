@@ -1,17 +1,23 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import Search from '../layout/Search'
 import UserLocationContext from '../../context/userLocation/userLocationContext'
 import Card from '../layout/cards/Card'
 import Button from '@material-ui/core/Button';
+import AuthContext from '../../context/auth/authContext'
 
 const Home = () => {
 
     const userLocationContext = useContext(UserLocationContext)
+    const authContext = useContext(AuthContext)
 
     const { getAddress, userAddress, places, currentPage, next, back } = userLocationContext
+    const { loadUser } = authContext
 
-    const colors = ['#0073BD', '#FF6B6B', '#DC901C', '#00B776']
+    useEffect(() => {
+        loadUser()
+        // eslint-disable-next-line
+    }, [])
 
     return (
             <div>

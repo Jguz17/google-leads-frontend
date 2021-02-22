@@ -1,3 +1,5 @@
+// ==== USER LOCATION ====
+
 export const GET_USER_LOCATION = 'GET_USER_LOCATION' 
 export const SET_USER_GEOLOCATION = 'SET_USER_GEOLOCATION'
 export const SET_PLACES_TYPE = 'SET_PLACES_TYPE'
@@ -6,3 +8,38 @@ export const CLEAR_PLACES = 'CLEAR_PLACES'
 export const SET_NEXT_PAGE_TOKEN = 'SET_NEXT_PAGE_TOKEN'
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 export const SET_PAGE_BACK = 'SET_PAGE_BACK'
+export const RESET_PAGE = 'RESET_PAGE'
+
+// ==== AUTH ====
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+export const REGISTER_FAIL = 'REGISTER_FAIL'
+export const USER_LOADED = 'USER_LOADED'
+export const AUTH_ERROR = 'AUTH_ERROR'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAIL = 'LOGIN_FAIL'
+export const LOGOUT = 'LOGOUT'
+export const CLEAR_ERRORS = 'CLEAR_ERRORS'
+
+// ==== USER PLACES ====
+export const CREATE_PLACE = 'CREATE_PLACE'
+export const DELETE_PLACE = 'DELETE_PLACE'
+export const SET_CURRENT = 'SET_CURRENT'
+export const DELETE_CURRENT = 'DELETE_CURRENT'
+export const UPDATE_PLACE = 'UPDATE_PLACE'
+export const FILTER_PLACES = 'FILTER_PLACES'
+export const CLEAR_FILTER = 'CLEAR_FILTER'
+export const PLACE_ERROR = 'PLACE_ERROR'
+export const GET_PLACES = 'GET_PLACES'
+export const CLEAR_USER_PLACES = 'CLEAR_USER_PLACES'
+
+// ==== ALERTS ====
+export const SET_ALERT = 'SET_ALERT'
+export const REMOVE_ALERT = 'REMOVE_ALERT'
+
+// ==== POP UP ====
+export const TURN_ACTIVATED_STATE_ON = 'TURN_ACTIVATED_STATE_ON'
+export const TURN_ACTIVATED_STATE_OFF = 'TURN_ACTIVATED_STATE_OFF'
+
+// ==== POP UP TYPE ====
+export const SET_POPUP_TYPE = 'SET_POPUP_TYPE'
+export const CLEAR_POPUP_TYPE = 'CLEAR_POPUP_TYPE'
