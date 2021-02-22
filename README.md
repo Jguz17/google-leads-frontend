@@ -2,7 +2,7 @@
 
 Google leads is a project that uses the Google Maps Places API. The frontend is built with React, Context API for state management, and Material UI. As of 2/21/2021, I have not worked on this project because I am currently focusing on other things at the moment, but I am planning on working on the fullstack features sometime this week! Also, I am actually using a proxy to make the request to Google Maps API. If the app gives you a 403 (check console), click on the link in the console associated with the error. It will grant you temporary access, you can read more about it here: https://github.com/Rob--W/cors-anywhere/issues/301
 
-![Image](https://ibb.co/VTQ6zr0.jpg)
+![Image](https://i.ibb.co/4pYkX9w/google-leads.jpg)
 
 ## Installation
 
