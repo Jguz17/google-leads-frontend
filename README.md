@@ -1,6 +1,6 @@
 # Google Leads Frontend
 
-Google leads is a project that uses the Google Maps Places API. The frontend is built with React, Context API for state management, and Material UI. As of 2/21/2021, I have not worked on this project. There is a bug in the home screen where it doesn't save the correct info to the users "my places". The user can manually create their data though. So that works.
+Google leads is a project that uses the Google Maps Places API. The frontend is built with React, Context API for state management, and Material UI. As of 2/21/2021, I have not worked on this project. There is a bug in the home screen where it doesn't save the correct info to the users "my places". The user can manually create their own data though. So that works.
 
 Checkout branch "current" for the current build with all the bugs :)
 
