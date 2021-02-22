@@ -4,6 +4,8 @@ Google leads is a project that uses the Google Maps Places API. The frontend is 
 
 Checkout branch "current" for the current build with all the bugs :)
 
+Also, the "welcome page" only has the title "welcome page". When I last worked on this, I was in the process of fixing the issue with the creation of a "place" for the user. So I didn't get to making this page yet.
+
 ![Image](https://i.imgur.com/lYASqJ4.jpg)
 
 ## Installation
